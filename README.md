@@ -2,7 +2,7 @@
 
 An early product prototype for an interactive Fire TV ad experience that lets viewers answer a branded trivia question and unlock a reward.
 
-This repo is best understood as a PM-style concept prototype. It is less about backend depth and more about testing a product idea: can a sponsored placement on Fire TV become a lightweight, high-attention interaction that feels natural for viewers and valuable for advertisers?
+The focus of this project is the interaction itself: whether a sponsored placement on Fire TV can become a lightweight, high-attention experience that feels natural for viewers and valuable for advertisers.
 
 ![Initial Playbreak experience flow](./docs/readme/experience-flow.svg)
 
@@ -52,19 +52,15 @@ In this prototype:
 
 That simple structure is important because it lowers cognitive load for viewers while still giving advertisers a clearer engagement signal than a standard impression.
 
-## Why This Feels PM-Built
+## Product Thinking Behind The Experience
 
-This repo shows product thinking in a few ways:
+The experience is built around a few core ideas:
 
 - **Clear hypothesis:** interactive TV engagement should feel lightweight, not game-like in a complicated way
 - **User-centered scope:** the experience is short, legible, and designed for lean-back behavior
 - **Behavioral realism:** it assumes a viewer is browsing, notices a sponsored unit, and only gives a few seconds of attention
 - **Commercial framing:** the reward is part of the product, not a decorative add-on
-- **Prototype sequencing:** it explores the consumer interaction first, which is exactly what a PM might validate before building the advertiser console and reporting layers
-
-This is the kind of repo a product manager might build to answer:
-
-> "Before we build the full platform, is the actual viewer experience compelling enough to justify it?"
+- **Prototype sequencing:** it explores the consumer interaction first, before expanding into advertiser tooling and reporting layers
 
 ![Playbreak value map](./docs/readme/value-map.svg)
 
@@ -128,11 +124,10 @@ It shows the moment the entire product depends on being believable.
 
 This project is especially useful for:
 
-- product managers exploring interactive ad concepts
 - designers prototyping TV-native interaction patterns
 - engineers evaluating feasibility of lean-back interactive flows
 - ads and monetization teams thinking about viewer engagement mechanics
-- interviewers and hiring managers looking for evidence of product thinking through code
+- teams exploring interactive ad concepts
 
 ## Tech Stack
 
