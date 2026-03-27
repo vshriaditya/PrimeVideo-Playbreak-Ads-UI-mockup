@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Check, Gamepad2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { GameData } from "@/app/page"
@@ -13,6 +13,18 @@ interface RewardScreenProps {
 export function RewardScreen({ game, onContinue }: RewardScreenProps) {
   const [showConfetti, setShowConfetti] = useState(true)
   const [countdown, setCountdown] = useState(5)
+  const confettiPieces = useMemo(
+    () =>
+      Array.from({ length: 70 }, (_, i) => ({
+        id: i,
+        left: `${(i * 17) % 100}%`,
+        size: `${4 + (i % 5) * 2}px`,
+        color: ["#ffd76d", "#55e480", "#ffffff", "#7ad2ff"][i % 4],
+        delay: `${(i % 8) * 0.1}s`,
+        duration: `${2.2 + (i % 6) * 0.2}s`,
+      })),
+    []
+  )
 
   useEffect(() => {
     const timeout = setTimeout(() => setShowConfetti(false), 3000)
@@ -24,7 +36,6 @@ export function RewardScreen({ game, onContinue }: RewardScreenProps) {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer)
-          onContinue()
           return 0
         }
         return prev - 1
@@ -32,28 +43,34 @@ export function RewardScreen({ game, onContinue }: RewardScreenProps) {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (countdown === 0) {
+      onContinue()
+    }
+  }, [countdown, onContinue])
 
   return (
     <div className="fixed inset-0 z-40">
-      <div className="absolute inset-0 bg-[rgba(6,7,9,0.72)] backdrop-blur-[4px]" />
-      <div className="absolute left-1/2 top-1/2 h-[540px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-[36px] bg-[#55e480]/16 blur-[48px]" />
+      <div className="absolute inset-0 bg-[rgba(4,10,18,0.78)] backdrop-blur-[8px]" />
+      <div className="absolute left-1/2 top-1/2 h-[560px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-[40px] bg-[#55e480]/14 blur-[56px]" />
 
       <div className="absolute inset-0 flex items-center justify-center p-8">
         <div
-          className="relative w-full max-w-[654px] overflow-hidden rounded-[24px] border border-white/35"
+          className="relative w-full max-w-[760px] overflow-hidden rounded-[30px] border border-white/12"
           style={{
-            boxShadow: "0 0 20px rgba(89, 227, 133, 0.16), 0 20px 48px rgba(0, 0, 0, 0.54)",
+            boxShadow: "0 0 20px rgba(89, 227, 133, 0.16), 0 30px 64px rgba(0, 0, 0, 0.56)",
           }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,88,134,0.18),transparent_32%),linear-gradient(180deg,#0d1721_0%,#0a1119_100%)]" />
-          <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_34%),linear-gradient(180deg,#151d2b_0%,#09111d_100%)]" />
+          <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]" />
 
-          <div className="relative px-12 py-10">
-            <div className="mb-10 flex items-center gap-16">
+          <div className="relative px-12 py-11">
+            <div className="mb-10 flex items-center gap-8">
               <BrandHeader />
               <div className="flex items-center gap-2">
-                <span className="text-[18px] font-semibold text-white">Playbreak</span>
+                <span className="text-[17px] font-semibold uppercase tracking-[0.18em] text-[#75bcff]">Playbreak</span>
                 <Gamepad2 className="h-5 w-5 text-[#f07a3c]" />
               </div>
             </div>
@@ -73,14 +90,14 @@ export function RewardScreen({ game, onContinue }: RewardScreenProps) {
               </svg>
             </div>
 
-            <h2 className="mb-1 text-center text-[50px] font-semibold leading-none tracking-tight text-white">
+            <h2 className="mb-1 text-center text-[58px] font-semibold leading-none tracking-[-0.05em] text-white">
               You Won!
             </h2>
-            <p className="mb-2 text-center text-[58px] font-bold leading-none tracking-tight text-[#50e274]">
+            <p className="mb-2 text-center text-[64px] font-[780] leading-none tracking-[-0.06em] text-[#58dd83]">
               {game.reward}
             </p>
             <p className="mb-7 text-center text-[16px] text-white/68">
-              Redeemable at any participating Toyota dealer
+              {game.rewardDetail}
             </p>
 
             <div className="mb-5 rounded-[18px] border border-white/18 bg-white/[0.08] px-5 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
@@ -95,7 +112,7 @@ export function RewardScreen({ game, onContinue }: RewardScreenProps) {
                 <div className="flex-1">
                   <p className="text-[14px] text-white/58">Your reward has been sent to</p>
                   <p className="text-[18px] font-semibold text-white">david@amazon.com</p>
-                  <p className="text-[14px] text-white/50">Also saved to Your Account &gt; Rewards and Savings</p>
+                  <p className="text-[14px] text-white/50">Also saved under Prime Video &gt; Rentals and purchases</p>
                 </div>
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#50e274]">
                   <Check className="h-6 w-6 text-[#092037]" />
@@ -109,17 +126,17 @@ export function RewardScreen({ game, onContinue }: RewardScreenProps) {
                 className="h-[52px] flex-1 rounded-full border-white/24 bg-transparent text-[18px] font-medium text-white hover:bg-white/8"
                 onClick={onContinue}
               >
-                Back to Browsing
+                Resume playback
               </Button>
               <Button
                 className="h-[52px] flex-1 rounded-full border-0 bg-[linear-gradient(180deg,#45b9ff_0%,#208fe0_100%)] text-[18px] font-semibold text-white shadow-[0_6px_20px_rgba(37,148,234,0.25)] hover:opacity-95"
               >
-                View My Rewards
+                View in Prime Video
               </Button>
             </div>
 
             <p className="text-center text-[14px] text-white/46">
-              Returning to home screen in {countdown} seconds...
+              Returning to your show in {countdown} seconds...
             </p>
           </div>
         </div>
@@ -127,21 +144,19 @@ export function RewardScreen({ game, onContinue }: RewardScreenProps) {
 
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(70)].map((_, i) => (
+          {confettiPieces.map((piece) => (
             <div
-              key={i}
+              key={piece.id}
               className="absolute animate-confetti rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
+                left: piece.left,
                 top: `-5%`,
-                width: `${4 + Math.random() * 8}px`,
-                height: `${4 + Math.random() * 8}px`,
-                backgroundColor: ["#ffd76d", "#55e480", "#ffffff", "#7ad2ff"][
-                  Math.floor(Math.random() * 4)
-                ],
+                width: piece.size,
+                height: piece.size,
+                backgroundColor: piece.color,
                 boxShadow: "0 0 10px rgba(255,255,255,0.24)",
-                animationDelay: `${Math.random() * 0.8}s`,
-                animationDuration: `${2.2 + Math.random() * 1.2}s`,
+                animationDelay: piece.delay,
+                animationDuration: piece.duration,
               }}
             />
           ))}

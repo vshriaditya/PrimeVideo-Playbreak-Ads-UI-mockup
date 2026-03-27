@@ -27,7 +27,7 @@
   <g>
     <rect x="475" y="262" width="250" height="56" rx="16" fill="#FFFFFF" stroke="#D7E0EA"/>
     <text x="500" y="296" fill="#132238" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Product Insight:</text>
-    <text x="618" y="296" fill="#5D708C" font-family="Arial, Helvetica, sans-serif" font-size="18">Does interactive TV feel natural enough to scale?</text>
+    <text x="618" y="296" fill="#5D708C" font-family="Arial, Helvetica, sans-serif" font-size="18">Does interactive streaming feel natural enough to scale?</text>
   </g>
 
   <path d="M358 193C404 193 432 182 475 181" stroke="#9FB2C8" stroke-width="4" stroke-linecap="round"/>

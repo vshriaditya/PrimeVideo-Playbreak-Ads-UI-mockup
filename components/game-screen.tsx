@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Check, Gamepad2 } from "lucide-react"
 import type { GameData } from "@/app/page"
 
@@ -14,6 +14,18 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
   const [gameState, setGameState] = useState<"playing" | "won" | "lost">("playing")
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [focusedAnswer, setFocusedAnswer] = useState(0)
+  const confettiPieces = useMemo(
+    () =>
+      Array.from({ length: 70 }, (_, i) => ({
+        id: i,
+        left: `${(i * 17) % 100}%`,
+        size: `${4 + (i % 5) * 2}px`,
+        color: ["#ffd76d", "#55e480", "#fefefe", "#77d0ff"][i % 4],
+        delay: `${(i % 8) * 0.1}s`,
+        duration: `${2.2 + (i % 6) * 0.2}s`,
+      })),
+    []
+  )
 
   useEffect(() => {
     if (gameState !== "playing") return
@@ -60,26 +72,26 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
 
   return (
     <div className="fixed inset-0 z-40">
-      <div className="absolute inset-0 bg-[rgba(6,7,9,0.72)] backdrop-blur-[4px]" />
+      <div className="absolute inset-0 bg-[rgba(4,10,18,0.78)] backdrop-blur-[8px]" />
 
       <div className="absolute inset-0 flex items-center justify-center p-8">
         <div
-          className="relative w-full max-w-[654px] overflow-hidden rounded-[24px] border border-white/35"
+          className="relative w-full max-w-[760px] overflow-hidden rounded-[30px] border border-white/12"
           style={{
             boxShadow: isWin
-              ? "0 0 24px rgba(78, 233, 132, 0.1), 0 20px 44px rgba(0, 0, 0, 0.52)"
-              : "0 20px 44px rgba(0, 0, 0, 0.52)",
+              ? "0 0 24px rgba(78, 233, 132, 0.1), 0 30px 64px rgba(0, 0, 0, 0.56)"
+              : "0 30px 64px rgba(0, 0, 0, 0.56)",
           }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,88,134,0.18),transparent_32%),linear-gradient(180deg,#0d1721_0%,#0a1119_100%)]" />
-          <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_34%),linear-gradient(180deg,#151d2b_0%,#09111d_100%)]" />
+          <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]" />
 
-          <div className="relative px-12 py-10">
-            <div className="mb-8 flex items-center justify-between">
-              <div className="flex items-center gap-16">
+          <div className="relative px-12 py-11">
+            <div className="mb-10 flex items-center justify-between">
+              <div className="flex items-center gap-8">
                 <BrandHeader />
-                <div className="flex items-center gap-2">
-                  <span className="text-[18px] font-semibold text-white">Playbreak</span>
+                <div className="flex items-center gap-2 text-white/80">
+                  <span className="text-[17px] font-semibold uppercase tracking-[0.18em] text-[#75bcff]">Playbreak</span>
                   <Gamepad2 className="h-5 w-5 text-[#f07a3c]" />
                 </div>
               </div>
@@ -125,7 +137,7 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
               </div>
             </div>
 
-            <h2 className="mx-auto mb-10 max-w-[520px] text-center text-[37px] font-semibold leading-[1.08] tracking-tight text-white">
+            <h2 className="mx-auto mb-10 max-w-[620px] text-center text-[54px] font-[760] leading-[0.98] tracking-[-0.05em] text-white">
               {game.question}
             </h2>
 
@@ -136,7 +148,7 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
                 const isFocused = focusedAnswer === index && gameState === "playing"
 
                 let buttonStyle =
-                  "border border-white/5 bg-[#263140] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+                  "border border-white/8 bg-[rgba(255,255,255,0.05)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
 
                 if (showResult) {
                   if (isCorrect) {
@@ -155,7 +167,7 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
                 return (
                   <button
                     key={index}
-                    className={`relative min-h-[80px] rounded-[18px] px-6 py-4 text-center transition-all duration-200 ${buttonStyle}`}
+                    className={`relative min-h-[92px] rounded-[22px] px-6 py-4 text-center transition-all duration-200 ${buttonStyle}`}
                     onClick={() => handleAnswer(index)}
                     onMouseEnter={() => setFocusedAnswer(index)}
                     disabled={selectedAnswer !== null}
@@ -164,7 +176,7 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
                       {showResult && isCorrect && (
                         <Check className="h-8 w-8" />
                       )}
-                      <span className="text-[27px] font-medium tracking-tight">{option}</span>
+                      <span className="text-[28px] font-semibold tracking-[-0.03em]">{option}</span>
                     </div>
                   </button>
                 )
@@ -175,20 +187,20 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
               <div className="text-center">
                 {gameState === "won" ? (
                   <>
-                    <p className="mb-2 text-[44px] font-semibold leading-none tracking-tight text-white">
+                    <p className="mb-2 text-[50px] font-semibold leading-none tracking-[-0.04em] text-white">
                       That&apos;s correct!
                     </p>
-                    <p className="text-[18px] font-medium text-[#58dd83]">Your reward is on its way...</p>
+                    <p className="text-[18px] font-medium text-[#58dd83]">Your Prime Video credit is on its way...</p>
                   </>
                 ) : (
                   <>
-                    <p className="mb-2 text-[38px] font-semibold tracking-tight text-white">Sorry!</p>
+                    <p className="mb-2 text-[42px] font-semibold tracking-[-0.04em] text-white">Sorry!</p>
                     <p className="text-[18px] text-white/78">
                       The correct answer is{" "}
                       <span className="font-semibold text-[#52df82]">{game.options[game.correctAnswer]}</span>
                     </p>
                     <p className="mt-1 text-[15px] text-white/58">
-                      Visit the nearest dealership to see your favorite Toyota
+                      Playback will resume and you can try the next Playbreak opportunity later.
                     </p>
                   </>
                 )}
@@ -198,7 +210,7 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
             {gameState === "playing" && (
               <>
                 <p className="text-center text-[16px] text-white/62">
-                  Use D-pad to select or say your answer to Alexa
+                  Use your remote to select an answer before playback resumes
                 </p>
                 <div className="mt-7 text-center">
                   <p className="text-[16px] font-medium text-[#58dd83]">
@@ -213,21 +225,19 @@ export function GameScreen({ game, onComplete }: GameScreenProps) {
 
       {gameState === "won" && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(70)].map((_, i) => (
+          {confettiPieces.map((piece) => (
             <div
-              key={i}
+              key={piece.id}
               className="absolute animate-confetti rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
+                left: piece.left,
                 top: `-5%`,
-                width: `${4 + Math.random() * 8}px`,
-                height: `${4 + Math.random() * 8}px`,
-                backgroundColor: ["#ffd76d", "#55e480", "#fefefe", "#77d0ff"][
-                  Math.floor(Math.random() * 4)
-                ],
+                width: piece.size,
+                height: piece.size,
+                backgroundColor: piece.color,
                 boxShadow: "0 0 10px rgba(255,255,255,0.25)",
-                animationDelay: `${Math.random() * 0.8}s`,
-                animationDuration: `${2.2 + Math.random() * 1.4}s`,
+                animationDelay: piece.delay,
+                animationDuration: piece.duration,
               }}
             />
           ))}

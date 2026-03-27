@@ -3,8 +3,8 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Fire TV Playbreak',
-  description: 'Play 10-second games. Win real rewards.',
+  title: 'Prime Video Playbreak',
+  description: 'Interactive Prime Video ad moments with instant rewards.',
   generator: 'v0.app',
   icons: {
     icon: [

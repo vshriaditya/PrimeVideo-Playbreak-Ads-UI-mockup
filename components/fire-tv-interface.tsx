@@ -2,164 +2,187 @@
 
 import { useState } from "react"
 import {
-  Clapperboard,
-  Film,
+  ChevronLeft,
   Gamepad2,
-  Grid2x2,
-  House,
-  Menu,
-  MonitorPlay,
-  Search,
-  Tv,
+  Pause,
+  Play,
+  Settings,
+  Subtitles,
+  Volume2,
 } from "lucide-react"
 
 interface FireTVInterfaceProps {
   onPlaybreakClick: () => void
 }
 
-const contentRows = [
+const relatedTitles = [
   {
-    title: "Continue Watching",
-    items: [
-      { title: "Landman", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=320&h=180&fit=crop", hasProgress: true, service: "Paramount+" },
-      { title: "F1", image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=320&h=180&fit=crop", service: "Apple TV+" },
-      { title: "Dan Wolf", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=320&h=180&fit=crop", service: "prime" },
-      { title: "The Pitt", image: "https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=320&h=180&fit=crop", service: "max" },
-      { title: "All Her Fault", image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=320&h=180&fit=crop", service: "Hulu" },
-      { title: "Drive", image: "https://images.unsplash.com/photo-1493238792000-8113da705763?w=320&h=180&fit=crop", service: "MGM+" },
-    ],
+    title: "Episode 2",
+    subtitle: "Vaultfall",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=480&h=270&fit=crop",
+  },
+  {
+    title: "Bonus",
+    subtitle: "Inside the Wasteland",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=480&h=270&fit=crop",
+  },
+  {
+    title: "Customers also watched",
+    subtitle: "Reacher",
+    image: "https://images.unsplash.com/photo-1493238792000-8113da705763?w=480&h=270&fit=crop",
   },
 ]
 
-const appBadges = [
-  { label: "NETFLIX", bg: "#ffffff", fg: "#db131f" },
-  { label: "prime video", bg: "#0f6fff", fg: "#ffffff" },
-  { label: "tv", bg: "#050505", fg: "#ffffff", prefix: "apple " },
-  { label: "YouTube", bg: "#ffffff", fg: "#d91d26" },
-  { label: "Disney+", bg: "#0d3457", fg: "#d7ecff" },
-  { label: "tubi", bg: "#6d0dca", fg: "#ffe83f" },
-  { label: "Paramount+", bg: "#1182df", fg: "#ffffff" },
-  { label: "hulu", bg: "#10281f", fg: "#72ea6f" },
-  { label: "STARZ", bg: "#161616", fg: "#ffffff" },
-  { label: "HBO MAX", bg: "#1f1f28", fg: "#ffffff" },
-]
-
 export function FireTVInterface({ onPlaybreakClick }: FireTVInterfaceProps) {
-  const [playbreakHovered, setPlaybreakHovered] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#e7dfd6] px-6 py-8 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.55),transparent_34%),linear-gradient(180deg,#e9e0d6_0%,#ded4ca_100%)]" />
+    <div className="relative min-h-screen overflow-hidden bg-[#060b12] text-white">
+      <img
+        src="https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=1920&h=1080&fit=crop"
+        alt="Prime Video paused playback"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,10,18,0.58)_0%,rgba(4,10,18,0.14)_24%,rgba(4,10,18,0.26)_54%,rgba(4,10,18,0.92)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(39,133,214,0.18),transparent_32%)]" />
 
-      <div className="relative aspect-[16/9] w-full max-w-[1480px] rounded-[12px] border border-[#202020] bg-[#050607] p-3 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
-        <div className="absolute inset-3 rounded-[10px] border border-white/10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]" />
-        <div className="absolute bottom-0 left-1/2 h-[6px] w-24 -translate-x-1/2 translate-y-4 rounded-full bg-[#0b0b0b] shadow-[0_5px_20px_rgba(0,0,0,0.55)]" />
-
-        <div className="relative h-full overflow-hidden rounded-[8px] bg-[#0b0f12]">
-          <nav className="absolute left-0 right-0 top-0 z-20 flex items-start justify-between px-16 pt-12">
-            <div className="flex items-start gap-7">
-              <TopIcon icon={Menu} />
-              <TopIcon icon={Search} />
-              <TopIcon icon={House} active label="Home" />
-              <TopIcon icon={Grid2x2} />
-              <TopIcon icon={MonitorPlay} />
-              <TopIcon icon={Film} />
-              <TopIcon icon={Clapperboard} />
-              <TopIcon icon={Tv} />
-            </div>
-            <div className="pt-1">
-              <FireTVLogo />
-            </div>
-          </nav>
-
-          <div className="relative h-[52%] overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=1920&h=1080&fit=crop"
-              alt="Featured content"
-              className="h-full w-full object-cover object-[center_30%]"
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(255,214,104,0.18),transparent_28%),linear-gradient(90deg,rgba(7,8,10,0.94)_0%,rgba(7,8,10,0.75)_28%,rgba(7,8,10,0.18)_56%,rgba(7,8,10,0.15)_100%)]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f12] via-transparent to-transparent" />
-
-            <div className="absolute left-16 top-[116px] max-w-[480px]">
-              <div className="mb-2 text-[106px] font-black italic leading-[0.9] tracking-[-0.06em] text-[#d0ab57]">
-                Fallout
-              </div>
-              <div className="mb-8 flex items-center gap-4">
-                <PrimeVideoLogo compact />
-                <div className="h-8 w-px bg-white/25" />
-                <div className="text-[18px] font-semibold uppercase tracking-tight text-white/94">
-                  Season Two
-                  <div className="text-[16px] font-medium text-white/78">Watch Now</div>
-                </div>
-              </div>
-              <button className="rounded-full bg-[#4b5261] px-9 py-3 text-[18px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
-                Learn more
-              </button>
+      <div className="relative z-10 flex min-h-screen flex-col px-12 py-10">
+        <header className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button className="flex h-12 w-12 items-center justify-center rounded-full border border-white/16 bg-black/24">
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.28em] text-[#7fcaff]">
+                Prime Video
+              </p>
+              <p className="text-[15px] text-white/72">Paused playback experience</p>
             </div>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 px-16 pb-10">
-            <div className="space-y-6">
-              <ContentRow title={contentRows[0].title} items={contentRows[0].items} />
+          <PrimeVideoWordmark />
+        </header>
 
-              <div className="flex gap-4 overflow-x-auto pb-1 scrollbar-hide">
-                {appBadges.map((app) => (
-                  <AppBadge key={app.label} {...app} />
-                ))}
+        <div className="flex flex-1 items-end">
+          <div className="grid w-full grid-cols-[1.12fr_0.88fr] gap-10">
+            <section className="pb-5">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/12 bg-black/28 px-4 py-2 text-[13px] text-white/72">
+                <Pause className="h-4 w-4" />
+                Playback paused at 21:14
               </div>
 
-              <div>
-                <p className="mb-2 text-[15px] font-medium tracking-wide text-white/36">SPONSORED</p>
+              <h1 className="max-w-[620px] text-[92px] font-[780] leading-[0.9] tracking-[-0.06em] text-white">
+                Fallout
+              </h1>
 
-                <button
-                  className={`relative w-full overflow-hidden rounded-[12px] border border-white/25 bg-[#22252b] transition-all duration-300 ${
-                    playbreakHovered
-                      ? "scale-[1.01] shadow-[0_0_0_2px_rgba(255,255,255,0.22),0_18px_40px_rgba(0,0,0,0.38)]"
-                      : "shadow-[0_12px_24px_rgba(0,0,0,0.25)]"
-                  }`}
-                  onMouseEnter={() => setPlaybreakHovered(true)}
-                  onMouseLeave={() => setPlaybreakHovered(false)}
-                  onClick={onPlaybreakClick}
-                >
-                  <div className="relative flex h-[116px] items-center bg-[linear-gradient(90deg,#08172d_0%,#0e2748_34%,#243854_35%,#2a2a2a_36%,#2e2d2a_100%)]">
-                    <div className="relative h-full w-[310px] flex-shrink-0 overflow-hidden">
-                      <img
-                        src="https://images.unsplash.com/photo-1581540222194-0def2dda95b8?w=640&h=280&fit=crop"
-                        alt="Toyota RAV4"
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#071120]/40 via-transparent to-[#081c36]/70" />
-                    </div>
+              <div className="mt-5 flex flex-wrap items-center gap-4 text-[16px] text-white/76">
+                <span className="rounded bg-white/10 px-3 py-1 text-white">S2 E1</span>
+                <span>45 min remaining</span>
+                <span>TV-14</span>
+                <span>Included with Prime</span>
+              </div>
 
-                    <div className="flex min-w-0 flex-1 items-center gap-5 px-8">
-                      <div className="min-w-0">
-                        <div className="mb-2 flex items-center gap-3">
-                          <BrandHeader />
-                        </div>
-                        <p className="max-w-[560px] text-[28px] font-semibold leading-[1.1] tracking-tight text-white">
-                          Which Toyota SUV was rated
-                        </p>
-                        <p className="max-w-[560px] text-[28px] font-semibold leading-[1.1] tracking-tight text-white">
-                          America&apos;s Most Loved in 2025?
-                        </p>
+              <p className="mt-6 max-w-[640px] text-[18px] leading-8 text-white/76">
+                Lucy and The Ghoul cross deeper into the wasteland as Vault-Tec secrets start to surface.
+                Prime Video resumes instantly when the viewer exits Playbreak.
+              </p>
+
+              <div className="mt-8 max-w-[720px]">
+                <div className="mb-3 flex items-center justify-between text-[14px] text-white/58">
+                  <span>21:14 elapsed</span>
+                  <span>58:02 total runtime</span>
+                </div>
+                <div className="h-1.5 rounded-full bg-white/14">
+                  <div className="h-full w-[36%] rounded-full bg-[#19a9ff]" />
+                </div>
+              </div>
+
+              <div className="mt-8 flex items-center gap-3">
+                <ControlButton icon={Play} label="Resume" active />
+                <ControlButton icon={Volume2} label="Audio" />
+                <ControlButton icon={Subtitles} label="Subtitles" />
+                <ControlButton icon={Settings} label="More" />
+              </div>
+
+              <div className="mt-10">
+                <p className="mb-4 text-[13px] font-semibold uppercase tracking-[0.22em] text-white/40">
+                  Up next on Prime Video
+                </p>
+                <div className="grid grid-cols-3 gap-4">
+                  {relatedTitles.map((item) => (
+                    <div
+                      key={item.subtitle}
+                      className="overflow-hidden rounded-[18px] border border-white/8 bg-black/18 backdrop-blur-sm"
+                    >
+                      <img src={item.image} alt={item.subtitle} className="aspect-video w-full object-cover" />
+                      <div className="px-4 py-3">
+                        <p className="text-[12px] uppercase tracking-[0.18em] text-white/40">{item.title}</p>
+                        <p className="mt-1 text-[16px] font-medium text-white/88">{item.subtitle}</p>
                       </div>
                     </div>
+                  ))}
+                </div>
+              </div>
+            </section>
 
-                    <div className="flex h-full w-[320px] flex-shrink-0 items-center justify-end gap-5 px-8 text-right">
-                      <div>
-                        <p className="text-[18px] font-medium leading-tight text-white/84">Play to win</p>
-                        <p className="text-[18px] font-semibold leading-tight text-white">$500 off MSRP</p>
-                      </div>
-                      <Gamepad2 className="h-8 w-8 text-[#f07a3c]" />
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#efefef] text-[15px] font-bold text-[#222]">
-                        10s
-                      </div>
+            <aside className="flex items-end">
+              <button
+                className={`ml-auto w-full max-w-[760px] overflow-hidden rounded-[28px] border bg-[linear-gradient(180deg,rgba(22,29,43,0.95)_0%,rgba(9,16,28,0.96)_100%)] text-left transition-all duration-200 ${
+                  isFocused
+                    ? "border-[#63c5ff] shadow-[0_0_0_3px_rgba(71,171,255,0.22),0_24px_60px_rgba(0,0,0,0.42)]"
+                    : "border-white/10 shadow-[0_20px_48px_rgba(0,0,0,0.34)]"
+                }`}
+                onClick={onPlaybreakClick}
+                onMouseEnter={() => setIsFocused(true)}
+                onMouseLeave={() => setIsFocused(false)}
+              >
+                <div className="border-b border-white/8 px-9 py-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[13px] font-semibold uppercase tracking-[0.26em] text-[#7fcaff]">
+                        Sponsored pause ad
+                      </p>
+                      <p className="mt-3 text-[38px] font-[760] tracking-[-0.05em] text-white">Playbreak</p>
+                    </div>
+                    <div className="flex h-[84px] w-[84px] items-center justify-center rounded-full bg-white text-[#0b1220]">
+                      <Gamepad2 className="h-10 w-10" />
                     </div>
                   </div>
-                </button>
-              </div>
-            </div>
+                </div>
+
+                <div className="p-9">
+                  <div className="mb-7 flex items-center gap-4">
+                    <BrandHeader />
+                    <span className="rounded-full border border-white/10 bg-white/6 px-5 py-2 text-[14px] font-semibold uppercase tracking-[0.18em] text-white/72">
+                      10 seconds
+                    </span>
+                  </div>
+
+                  <p className="max-w-[560px] text-[40px] font-[760] leading-[1.06] tracking-[-0.045em] text-white">
+                    Which Toyota SUV was rated America&apos;s Most Loved in 2025?
+                  </p>
+
+                  <p className="mt-5 max-w-[560px] text-[18px] leading-[1.6] text-white/64">
+                    Answer with your remote before playback resumes. Correct answers unlock a Prime Video credit instantly.
+                  </p>
+
+                  <div className="mt-10 flex items-end justify-between gap-8">
+                    <div>
+                      <p className="text-[14px] font-semibold uppercase tracking-[0.22em] text-white/42">
+                        Viewer reward
+                      </p>
+                      <p className="mt-4 whitespace-nowrap text-[34px] font-[760] leading-none tracking-[-0.045em] text-[#66d57f]">
+                        $3 Prime Video credit
+                      </p>
+                    </div>
+
+                    <div className="whitespace-nowrap rounded-full bg-[linear-gradient(180deg,#2bb8ff_0%,#1387e6_100%)] px-8 py-4 text-[18px] font-semibold tracking-tight text-white">
+                      Press OK to play
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </aside>
           </div>
         </div>
       </div>
@@ -167,118 +190,34 @@ export function FireTVInterface({ onPlaybreakClick }: FireTVInterfaceProps) {
   )
 }
 
-function ContentRow({
-  title,
-  items,
-}: {
-  title: string
-  items: { title: string; image: string; hasProgress?: boolean }[]
-}) {
-  return (
-    <div>
-      <h2 className="mb-3 text-[18px] font-normal tracking-tight text-white/68">{title}</h2>
-      <div className="flex gap-4 overflow-x-auto pb-1 scrollbar-hide">
-        {items.map((item, index) => (
-          <MovieThumbnail key={index} {...item} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function MovieThumbnail({
-  title,
-  image,
-  hasProgress,
-  service,
-}: {
-  title: string
-  image: string
-  hasProgress?: boolean
-  service?: string
-}) {
-  return (
-    <div className="group relative w-[238px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[12px] border border-white/6 bg-white/5 transition-all hover:border-white/18 hover:shadow-[0_10px_28px_rgba(0,0,0,0.35)]">
-      <div className="relative aspect-video">
-        <img
-          src={image}
-          alt={title}
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-transparent" />
-        {service && (
-          <span className="absolute right-2 top-2 rounded bg-black/50 px-2 py-1 text-[10px] font-medium uppercase tracking-wide text-white/72">
-            {service}
-          </span>
-        )}
-        <span className="absolute bottom-2 left-3 right-2 truncate text-[14px] font-semibold tracking-tight text-white/92">
-          {title}
-        </span>
-        {hasProgress && (
-          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/18">
-            <div className="h-full w-1/3 bg-white/80" />
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function AppBadge({
-  label,
-  bg,
-  fg,
-  prefix,
-}: {
-  label: string
-  bg: string
-  fg: string
-  prefix?: string
-}) {
-  return (
-    <div
-      className="flex h-[72px] min-w-[136px] flex-shrink-0 items-center justify-center rounded-[16px] px-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-      style={{ backgroundColor: bg, color: fg }}
-    >
-      <span className="text-[18px] font-bold tracking-tight">
-        {prefix && <span className="font-medium">{prefix}</span>}
-        {label}
-      </span>
-    </div>
-  )
-}
-
-function TopIcon({
+function ControlButton({
   icon: Icon,
-  active,
   label,
+  active,
 }: {
-  icon: typeof House
+  icon: typeof Play
+  label: string
   active?: boolean
-  label?: string
 }) {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div
-        className={`flex h-14 w-14 items-center justify-center rounded-2xl transition-colors ${
-          active ? "bg-white text-[#101317]" : "text-white/70"
-        }`}
-      >
-        <Icon className="h-7 w-7 stroke-[2.2]" />
-      </div>
-      {label && <span className="text-[16px] font-semibold text-white">{label}</span>}
-    </div>
+    <button
+      className={`flex items-center gap-3 rounded-full border px-5 py-3 text-[15px] font-medium transition-colors ${
+        active ? "border-[#3eb7ff] bg-[#1291e8] text-white" : "border-white/12 bg-black/22 text-white/80"
+      }`}
+    >
+      <Icon className="h-5 w-5" />
+      <span>{label}</span>
+    </button>
   )
 }
 
-function FireTVLogo() {
+function PrimeVideoWordmark() {
   return (
-    <div className="flex items-end gap-[2px] text-white">
-      <span className="text-[16px] font-semibold tracking-tight">fire</span>
-      <span className="text-[22px] font-light leading-none tracking-tight">tv</span>
-      <svg viewBox="0 0 42 12" className="-ml-7 mb-[-8px] h-3 w-10 text-white">
+    <div className="text-right">
+      <div className="text-[25px] font-semibold tracking-[-0.03em] text-[#2e8dff]">prime video</div>
+      <svg viewBox="0 0 52 12" className="ml-auto mt-1 h-3 w-12 text-[#2ea7ff]">
         <path
-          d="M2 2.5c5 5 20 6.5 37 1.5"
+          d="M2 2.5c6 4.5 24 6 48 1"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"
@@ -289,43 +228,17 @@ function FireTVLogo() {
   )
 }
 
-function PrimeVideoLogo({ compact }: { compact?: boolean }) {
-  return (
-    <div
-      className={`flex items-center rounded-[6px] ${
-        compact ? "px-0 py-0 shadow-none" : "bg-[#1d2635]/85 px-2.5 py-1 shadow-[inset_0_0_0_1px_rgba(88,184,255,0.24)]"
-      }`}
-    >
-      <div className="relative">
-        <span className={`${compact ? "text-[20px]" : "text-[13px]"} font-medium tracking-tight text-[#2e8dff]`}>
-          prime
-          {!compact && " video"}
-        </span>
-        <svg viewBox="0 0 44 12" className="absolute -bottom-[7px] left-[7px] h-3 w-10 text-[#2ea7ff]">
-          <path
-            d="M2 2.5c4.5 4 20 6 40 1"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-    </div>
-  )
-}
-
 function BrandHeader() {
   return (
     <div className="flex items-center gap-3">
-      <div className="flex h-7 w-7 items-center justify-center rounded-sm bg-[#e51b23]">
-        <svg viewBox="0 0 100 70" className="h-4 w-4 fill-current text-white">
+      <div className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[#ff1f29] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+        <svg viewBox="0 0 100 70" className="h-5 w-5 fill-current text-white">
           <ellipse cx="50" cy="35" rx="45" ry="30" fill="none" stroke="currentColor" strokeWidth="5" />
           <ellipse cx="50" cy="35" rx="28" ry="18" fill="none" stroke="currentColor" strokeWidth="5" />
           <ellipse cx="50" cy="35" rx="10" ry="30" fill="none" stroke="currentColor" strokeWidth="5" />
         </svg>
       </div>
-      <span className="text-[14px] font-bold tracking-wide text-white">TOYOTA</span>
+      <span className="text-[20px] font-bold tracking-[0.08em] text-white">TOYOTA</span>
     </div>
   )
 }

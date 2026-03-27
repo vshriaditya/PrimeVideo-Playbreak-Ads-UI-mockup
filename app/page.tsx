@@ -5,7 +5,7 @@ import { FireTVInterface } from "@/components/fire-tv-interface"
 import { GameScreen } from "@/components/game-screen"
 import { RewardScreen } from "@/components/reward-screen"
 
-export type PlaybreakState = "browsing" | "playing" | "reward"
+export type PlaybreakState = "watching" | "playing" | "reward"
 
 export interface GameData {
   id: string
@@ -13,11 +13,13 @@ export interface GameData {
   brandLogo: string
   brandColor: string
   type: "trivia"
+  surface: string
   question: string
   options: string[]
   correctAnswer: number
   reward: string
   rewardAmount: string
+  rewardDetail: string
 }
 
 const toyotaGame: GameData = {
@@ -26,15 +28,17 @@ const toyotaGame: GameData = {
   brandLogo: "",
   brandColor: "#EB0A1E",
   type: "trivia",
+  surface: "Prime Video pause ad",
   question: "Which Toyota SUV was rated America's Most Loved in 2025?",
   options: ["RAV4", "Highlander", "4Runner", "Tacoma"],
   correctAnswer: 0,
-  reward: "$500 off MSRP",
-  rewardAmount: "$500",
+  reward: "$3 Prime Video credit",
+  rewardAmount: "$3",
+  rewardDetail: "Added instantly to your Prime Video account for your next rental or purchase.",
 }
 
 export default function Home() {
-  const [state, setState] = useState<PlaybreakState>("browsing")
+  const [state, setState] = useState<PlaybreakState>("watching")
   const [selectedGame, setSelectedGame] = useState<GameData | null>(null)
 
   const handlePlaybreakClick = () => {
@@ -46,19 +50,19 @@ export default function Home() {
     if (won) {
       setState("reward")
     } else {
-      setState("browsing")
+      setState("watching")
       setSelectedGame(null)
     }
   }
 
-  const handleContinueBrowsing = () => {
-    setState("browsing")
+  const handleContinueWatching = () => {
+    setState("watching")
     setSelectedGame(null)
   }
 
   return (
     <main className="min-h-screen bg-background overflow-hidden">
-      {state === "browsing" && (
+      {state === "watching" && (
         <FireTVInterface onPlaybreakClick={handlePlaybreakClick} />
       )}
 
@@ -67,7 +71,7 @@ export default function Home() {
       )}
 
       {state === "reward" && selectedGame && (
-        <RewardScreen game={selectedGame} onContinue={handleContinueBrowsing} />
+        <RewardScreen game={selectedGame} onContinue={handleContinueWatching} />
       )}
     </main>
   )
