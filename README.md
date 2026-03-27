@@ -1,132 +1,99 @@
-# Prime Video Playbreak Viewer Demo
+# Prime Video Playbreak Ads UI Mockup
 
-An early product prototype for an interactive Prime Video ad experience that lets viewers answer a branded trivia prompt during a pause moment and unlock a reward.
+A product mockup for `Playbreak`, a Prime Video pause-ad concept that turns a passive ad moment into a short, fully opt-in interactive game with an instant reward.
 
-The focus of this project is the interaction itself: whether a sponsored placement inside Prime Video can become a lightweight, high-attention experience that feels natural for viewers and valuable for advertisers.
+This repo focuses on the **viewer-side experience**: what the ad actually feels like inside Prime Video, how the interaction fits a lean-back environment, and how the viewer returns to content without friction.
 
 ![Prime Video Playbreak experience flow](./docs/readme/experience-flow.svg)
 
-## What This Project Is
+## Overview
 
-`prime-video-playbreak-viewer-demo` is an early exploration of the **consumer-side Playbreak experience**.
+Playbreak is designed around a simple product idea:
 
-Where the companion console-style prototype focuses on how advertisers would configure and measure campaigns, this repo focuses on the viewer journey itself:
+**Take an existing Prime Video pause-ad moment and turn it into a 10-second branded interaction that gives the viewer a real reason to engage.**
 
-- a viewer pauses Prime Video content
+In this mockup:
+
+- a viewer pauses playback inside Prime Video
 - a sponsored Playbreak unit appears in the pause moment
 - the viewer opens a short branded trivia experience
 - a correct answer unlocks a reward
-- the experience returns the user to playback
+- the viewer returns directly to playback
 
-This makes the repo useful as a first-principles product artifact because it shows the actual interaction pattern before building the full operational system around it.
+The prototype uses Toyota as the example advertiser and a Prime Video credit as the reward mechanic.
 
-## The Problem It Is Solving
+## Why This Exists
 
-Most streaming ads are passive by design.
+Most streaming ads are still passive by default. That creates a few product problems:
 
-That creates a few product challenges:
+- viewers have little reason to actively engage
+- advertisers get impressions, but not much intentional participation
+- interactive ad concepts often sound compelling in strategy discussions but remain abstract
+- product teams need a believable artifact to evaluate whether a new ad format feels native or disruptive
 
-- viewers have limited reason to actively engage
-- advertisers struggle to create memorable value exchange inside streaming sessions without disrupting viewing
-- interactive ad concepts can sound exciting in strategy discussions but remain abstract without a believable viewing experience
-- product teams need a fast way to test whether the interaction feels intuitive before investing in a broader platform
-
-This prototype addresses that by turning the idea into something concrete and testable.
+This mockup makes the idea concrete.
 
 Instead of asking, "What if streaming ads were interactive?", it answers:
 
-**"What would a simple, branded, reward-driven interaction actually feel like inside Prime Video?"**
+**"What would an interactive Prime Video pause ad actually feel like?"**
 
-## The Product Idea
+## What The Mockup Demonstrates
 
-The core concept is straightforward:
+This repo is meant to explore several product questions:
 
-**Use a short trivia mechanic to convert a pause ad into an interactive reward moment.**
-
-In this prototype:
-
-- Toyota is the example advertiser
-- the viewer is presented with a single timed question
-- the interaction is optimized for remote input
-- success leads to a Prime Video credit and redemption messaging
-
-That simple structure is important because it lowers cognitive load for viewers while still giving advertisers a clearer engagement signal than a standard impression.
-
-## Product Thinking Behind The Experience
-
-The experience is built around a few core ideas:
-
-- **Clear hypothesis:** interactive streaming engagement should feel lightweight, not complicated
-- **User-centered scope:** the experience is short, legible, and designed for lean-back behavior
-- **Behavioral realism:** it assumes a viewer pauses playback, notices a voluntary unit, and only gives a few seconds of attention
-- **Commercial framing:** the reward is part of the product, not a decorative add-on
-- **Prototype sequencing:** it explores the consumer interaction first, before expanding into advertiser tooling and reporting layers
+- Can a reward-driven pause ad feel natural inside Prime Video?
+- Is a 10-second interaction short enough to preserve the viewing experience?
+- Does a trivia mechanic create a clear value exchange without feeling gimmicky?
+- What should the transition from playback to interaction to reward look like?
+- What parts of the viewer flow need to feel polished before advertiser tooling is worth building?
 
 ![Playbreak value map](./docs/readme/value-map.svg)
 
-## User Flow
+## Experience Flow
 
 ### 1. Prime Video pause moment
 
-The prototype starts from a Prime Video playback pause moment with a sponsored Playbreak placement embedded below the hero area.
+The mockup starts from a paused Prime Video playback surface rather than a generic TV home screen. The interaction is framed as a natural extension of the pause-ad environment.
 
-### 2. Sponsored interactive unit
+### 2. Sponsored Playbreak unit
 
-The sponsored module is framed as a branded Toyota placement with a clear call to play and a visible Prime Video credit incentive.
+The viewer sees a sponsored ad card with a clear call to play, a visible 10-second constraint, and an explicit reward.
 
-### 3. Timed trivia interaction
+### 3. Timed interaction
 
-Once opened, the viewer gets:
+The viewer answers one branded question using the remote. The interaction is optimized for legibility, speed, and minimal cognitive load.
 
-- one branded trivia question
-- four answer options
-- a 10-second countdown
-- support for remote-style selection
+### 4. Reward outcome
 
-### 4. Outcome state
-
-If the viewer answers correctly, the flow transitions into a reward state with celebratory feedback and redemption messaging.
-
-If the answer is incorrect or time expires, the prototype drops the viewer back into content playback.
+If the viewer answers correctly, the flow reveals a reward state with confirmation messaging and then returns to playback.
 
 ### 5. Return to content
 
-The experience is intentionally lightweight and self-contained so it feels like a moment inside playback, not a separate app experience.
+The entire experience is self-contained so it feels like a lightweight moment inside Prime Video rather than a separate app flow.
 
-## What This Prototype Demonstrates
+## Connection To The Larger Product
 
-This repo helps illustrate several product questions:
+This repo is the consumer-side counterpart to the advertiser console prototype in the companion repo.
 
-- Can interactive ads feel native to a streaming playback environment?
-- Does a reward-based mechanic create enough motivation to engage?
-- Is trivia a good first interaction pattern for a Prime Video pause ad?
-- How should the ad experience transition between discovery, participation, reward, and playback?
-- What parts of the consumer journey need to feel polished before building tooling for advertisers?
+If the broader product vision is:
 
-## How This Connects To The Bigger Product Story
+- advertisers configure interactive Prime Video campaigns
+- those campaigns run in pause, pre-roll, or live break moments
+- engagement and reward outcomes are measured end to end
 
-This prototype can be read as the front-end consumer counterpart to a broader Playbreak system.
+then this repo represents the most important proof point in that chain:
 
-If the bigger product vision is:
+**the viewer interaction itself.**
 
-- advertisers configure interactive campaigns
-- campaigns run inside Prime Video ad placements
-- user engagement and rewards are measured end to end
+## Who This Is For
 
-Then this repo is the earliest proof point in that chain:
+This mockup is useful for:
 
-**the interaction itself.**
-
-It shows the moment the entire product depends on being believable.
-
-## Who This Repo Is For
-
-This project is especially useful for:
-
-- designers prototyping streaming-native interaction patterns
-- engineers evaluating feasibility of lean-back interactive flows
-- ads and monetization teams thinking about viewer engagement mechanics
-- teams exploring interactive ad concepts for Prime Video
+- product managers exploring interactive ad formats
+- designers prototyping streaming-native ad experiences
+- engineers evaluating lean-back interaction patterns
+- ads and monetization teams assessing viewer-value exchange
+- stakeholders reviewing Prime Video ad innovation concepts
 
 ## Tech Stack
 
@@ -146,6 +113,6 @@ Then open `http://localhost:3000`.
 
 ## Notes
 
-- This is a prototype, not a production-ready ad product.
-- The brand, reward, and content examples are illustrative and used to tell the product story.
-- The main purpose of the repo is to communicate a Prime Video interaction concept and product hypothesis clearly.
+- This is a product mockup, not a production ad system.
+- Brand names, rewards, and UI content are illustrative.
+- The goal is to communicate product thinking, surface design, and interaction quality rather than backend implementation depth.
