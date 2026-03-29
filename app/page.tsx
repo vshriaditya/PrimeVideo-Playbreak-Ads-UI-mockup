@@ -3,9 +3,10 @@
 import { useState } from "react"
 import { FireTVInterface } from "@/components/fire-tv-interface"
 import { GameScreen } from "@/components/game-screen"
+import { PlaybackScreen } from "@/components/playback-screen"
 import { RewardScreen } from "@/components/reward-screen"
 
-export type PlaybreakState = "watching" | "playing" | "reward"
+export type PlaybreakState = "playback" | "watching" | "playing" | "reward"
 
 export interface GameData {
   id: string
@@ -38,8 +39,12 @@ const toyotaGame: GameData = {
 }
 
 export default function Home() {
-  const [state, setState] = useState<PlaybreakState>("watching")
+  const [state, setState] = useState<PlaybreakState>("playback")
   const [selectedGame, setSelectedGame] = useState<GameData | null>(null)
+
+  const handlePausePlayback = () => {
+    setState("watching")
+  }
 
   const handlePlaybreakClick = () => {
     setSelectedGame(toyotaGame)
@@ -62,6 +67,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background overflow-hidden">
+      {state === "playback" && (
+        <PlaybackScreen onPause={handlePausePlayback} />
+      )}
+
       {state === "watching" && (
         <FireTVInterface onPlaybreakClick={handlePlaybreakClick} />
       )}
